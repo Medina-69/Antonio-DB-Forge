@@ -1,0 +1,53 @@
+CREATE VIEW vw_Productos_Mas_Vendidos AS
+SELECT TOP 10 
+    P.Nombre AS Producto, 
+    SUM(R.Cantidad) AS Total_Vendido
+FROM Registros R
+JOIN Productos P ON R.Id_Producto = P.Id
+GROUP BY P.Nombre;
+GO
+
+CREATE VIEW vw_Margen_Promedio_Producto AS
+SELECT 
+    P.Nombre AS Producto,
+    AVG(R.Precio_unitario - R.Costo_unitario) AS Margen_Promedio
+FROM Registros R
+JOIN Productos P ON R.Id_Producto = P.Id
+GROUP BY P.Nombre;
+GO
+
+CREATE VIEW vw_Documentos_por_Vendedor AS
+SELECT 
+    V.Nombre + ' ' + V.Apellido_Paterno AS Vendedor, 
+    COUNT(DISTINCT R.Documento) AS Total_Documentos
+FROM Registros R
+JOIN Vendedores V ON R.Id_Vendedor = V.Id
+GROUP BY V.Nombre, V.Apellido_Paterno;
+GO
+
+CREATE VIEW vw_Ventas_por_Estado AS
+SELECT 
+    E.Estado, 
+    SUM(R.Cantidad * R.Precio_unitario) AS Total_Ventas
+FROM Registros R
+JOIN Empresas E ON R.Id_Empresa = E.Id
+GROUP BY E.Estado;
+GO
+
+CREATE VIEW vw_Ventas_Mensuales AS
+SELECT 
+    FORMAT(TRY_CONVERT(DATE, Fecha_registro, 103), 'yyyy-MM') AS Mes, 
+    SUM(Cantidad * Precio_unitario) AS Total_Ventas
+FROM Registros
+GROUP BY FORMAT(TRY_CONVERT(DATE, Fecha_registro, 103), 'yyyy-MM');
+GO
+
+
+
+-- Para ver las vistas usar el código siguiente dependiendo de cual se desee ver:
+
+SELECT * FROM vw_Productos_Mas_Vendidos ORDER BY Total_Vendido DESC;
+SELECT * FROM vw_Margen_Promedio_Producto ORDER BY Total_Vendido DESC;
+SELECT * FROM vw_Documentos_por_Vendedor ORDER BY Total_Vendido DESC;
+SELECT * FROM vw_Ventas_por_Estado ORDER BY Total_Vendido DESC;
+SELECT * FROM vw_Ventas_Mensuales ORDER BY Total_Vendido DESC;
