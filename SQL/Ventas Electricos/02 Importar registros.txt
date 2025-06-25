@@ -1,0 +1,29 @@
+CREATE TABLE Registros_Import (
+    Fecha_registro DATE,
+    Documento NVARCHAR(100),
+    Id_Vendedor INT,
+    Id_Producto INT,
+    Id_Empresa INT,
+    Cantidad INT,
+    Porcentaje_Descuento DECIMAL(5,2),
+    Precio_unitario DECIMAL(10,2),
+    Costo_unitario DECIMAL(10,2)
+);
+BULK INSERT Registros_Import
+FROM 'C:\Users\medin\OneDrive\Documentos\Curriculum\Registros.csv'
+WITH (
+    FIRSTROW = 2,
+    FIELDTERMINATOR = ',',
+    ROWTERMINATOR = '\n',
+    CODEPAGE = '65001'
+);
+INSERT INTO Registros (
+    Fecha_registro, Documento, Id_Vendedor,
+    Id_Producto, Id_Empresa, Cantidad,
+    Porcentaje_Descuento, Precio_unitario, Costo_unitario
+)
+SELECT 
+    TRY_CONVERT(DATE, Fecha_registro, 103), -- formato dd/MM/yyyy
+    Documento, Id_Vendedor, Id_Producto, Id_Empresa, Cantidad,
+    Porcentaje_Descuento, Precio_unitario, Costo_unitario
+FROM Registros_Import;
