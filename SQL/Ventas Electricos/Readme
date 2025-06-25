@@ -1,1 +1,13 @@
 
+## 📦 Datos de ejemplo
+
+Este repositorio incluye el archivo **`Registros.csv`** con **81,534 registros de ventas**, diseñado para pruebas y análisis. La carga de datos se realiza mediante scripts SQL que se encuentran en los archivos `.txt`, estructurados para ser compatibles con SQL Server.
+
+### 🔄 Proceso de carga:
+
+1. Crear la base de datos desde `01 Crear la base.txt`
+2. Utilizar el archivo `02 Importar registros.txt` para importar los datos desde `Registros.csv` usando `BULK INSERT` u otra técnica apropiada para tu entorno
+
+> ⚠️ Asegúrate de ubicar el archivo `Registros.csv` en la ruta especificada dentro del script de carga, o ajusta el path según sea necesario.
+
+4. Finalmente, utilizar el archivo `03 Crear vistas.txt`, que contiene las instrucciones para generar vistas analíticas basadas en los datos cargados.
