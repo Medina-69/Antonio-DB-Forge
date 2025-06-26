@@ -21,7 +21,7 @@ Soy un profesional apasionado por resolver problemas a través de datos. Este po
 ## 🌐 Contacto
 
 📧 [medinarosas.antonio@gmail.com]  
-🔗 [LinkedIn](https://www.linkedin.com/in/luis-antonio-m-4b4810172/)
+🔗 [LinkedIn](www.linkedin.com/in/antonio-medinarosas)
 
 ---
 
