@@ -36,7 +36,7 @@ Este repositorio reúne un conjunto de herramientas desarrolladas para la gesti�
 - **Formulario_Busqueda.xlsx**  
   Formulario en VBA con búsqueda dinámica tipo *autocomplete*. Filtra registros en tiempo real a medida que el usuario escribe.
 
-- **Funcion_NumeroALetras.sql / Macro VBA**  
+- **Funcion_NumeroALetras.xlsx / Macro VBA**  
   Función personalizada que convierte valores numéricos a texto en español, incluyendo soporte para decimales. Útil para documentos fiscales como facturas y recibos.
   
 ---
