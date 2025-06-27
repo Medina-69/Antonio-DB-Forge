@@ -33,10 +33,10 @@ Este repositorio reúne un conjunto de herramientas desarrolladas para la gesti�
 - **Diagrama_de_Gantt.xlsx**  
   Herramienta para planificación de proyectos con tareas, subtareas y cronograma visual semanal. Integra asignaciones, progreso y fechas clave.
 
-- **Formulario_Busqueda.xlsx**  
+- **Formulario_Busqueda.xlsm**  
   Formulario en VBA con búsqueda dinámica tipo *autocomplete*. Filtra registros en tiempo real a medida que el usuario escribe.
 
-- **Funcion_NumeroALetras.xlsx / Macro VBA**  
+- **Funcion_NumeroALetras.xlsm / Macro VBA**  
   Función personalizada que convierte valores numéricos a texto en español, incluyendo soporte para decimales. Útil para documentos fiscales como facturas y recibos.
   
 ---
