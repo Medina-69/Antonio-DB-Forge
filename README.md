@@ -43,7 +43,7 @@ Este repositorio reúne un conjunto de herramientas desarrolladas para la gesti�
 
 ### 📂 Power BI
 
-- **Dashboard_Ventas.pbix**  
+- **Dashboard Ventas Electricos.pbix**  
   Informe interactivo que muestra tendencias de venta, rendimiento por producto y variación mensual mediante visualizaciones avanzadas, incluyendo mapas personalizados y métricas dinámicas.
 
 ---
