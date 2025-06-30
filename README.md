@@ -6,10 +6,9 @@ Este repositorio reúne un conjunto de herramientas desarrolladas para la gesti�
 
 ## 🧠 Tecnologías utilizadas
 
-- SQL Server (T-SQL, Vistas, Scripts portables)
-- Excel con Power Query, Power Pivot y VBA
+- SQL Server (T-SQL, Vistas, Integridad referencial, Scripts portables)
+- Excel con Power Query, Power Pivot y formularios avanzados en VBA
 - Power BI (Métricas, Visualizaciones personalizadas, Shape Maps)
-- GitHub para versionado y documentación de soluciones
 
 ---
 
@@ -19,6 +18,9 @@ Este repositorio reúne un conjunto de herramientas desarrolladas para la gesti�
 
 - **Ventas_Electricos.sql**  
   Script universal para creación de base de datos con estructura optimizada, compatible con múltiples versiones de SQL Server. Incluye inserciones masivas, normalización de tablas y vistas analíticas personalizadas.
+
+- **Medina_ERP.sql**  
+  Esquema completo para sistema ERP enfocado en compras y ventas. Contiene relaciones entre proveedores, marcas, productos, clientes y órdenes. Se incorporan validaciones (CHECKs), uso de VARBINARY para imágenes y estructuras preparadas para integración analítica.
 
 ---
 
@@ -33,12 +35,14 @@ Este repositorio reúne un conjunto de herramientas desarrolladas para la gesti�
 - **Diagrama_de_Gantt.xlsx**  
   Herramienta para planificación de proyectos con tareas, subtareas y cronograma visual semanal. Integra asignaciones, progreso y fechas clave.
 
-- **Formulario_Busqueda.xlsm / Macro VBA**  
-  Formulario en VBA con búsqueda dinámica tipo *autocomplete*. Filtra registros en tiempo real a medida que el usuario escribe.
+- **Formularios de Cotización y Venta (.xlsm)**  
+  Módulos en VBA que generan cotizaciones y ventas con cálculos dinámicos de montos, impuestos y descuentos. Incluyen búsqueda inteligente de proveedores o clientes, y están preparados para integrarse con Power BI o Power Query.
 
-- **Funcion_NumeroALetras.xlsm / Macro VBA**  
+- **Funcion_NumeroALetras.xlsm**  
   Función personalizada que convierte valores numéricos a texto en español, incluyendo soporte para decimales. Útil para documentos fiscales como facturas y recibos.
-  
+
+- **Medina_ERP.xlsm**  
+  Archivo que va a funcionar como aplicación de conexión entre un ambiente gráfico y la base de datos en SQL.
 ---
 
 ### 📂 Power BI
@@ -50,17 +54,13 @@ Este repositorio reúne un conjunto de herramientas desarrolladas para la gesti�
 
 ## 🎯 Objetivos
 
-- Automatizar la recolección y transformación de datos.
+- Automatizar la recolección, transformación y análisis de datos empresariales.
 - Presentar insights mediante dashboards claros e intuitivos.
-- Consolidar una base técnica robusta en soluciones empresariales.
-- Servir como portafolio profesional para procesos de selección.
+- Integrar múltiples tecnologías para brindar soluciones completas y reutilizables.
+- Consolidar una base técnica robusta como portafolio profesional.
 
 ---
 
 ## 🧩 Autor
 
-Desarrollado por **Antonio**, con experiencia en bases de datos, automatización en Excel y visualización de datos para entornos empresariales e iniciativas de análisis estratégico.
-
----
-
-
+Desarrollado por **Antonio**, con experiencia en bases de datos, automatización en Excel, coordinación de RRHH y visualización de datos. Su enfoque se basa en crear herramientas escalables que resuelvan necesidades reales en entornos empresariales.
