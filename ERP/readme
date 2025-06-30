@@ -1,0 +1,97 @@
+# 📦 Medina_ERP.xlsm
+
+**Medina_ERP.xlsm** es un sistema ERP ligero construido sobre Excel y VBA, diseñado para empresas que desean gestionar órdenes de compra y venta con autenticación de usuarios y conexión directa a bases de datos SQL Server. Este archivo integra formularios interactivos, seguridad por roles y estructuras relacionales, emulando funciones avanzadas de software empresarial sin necesidad de licencias costosas.
+
+---
+
+## 🚀 Características principales
+
+- 🔐 **Inicio de sesión con autenticación de usuarios**
+- 🎭 Control de acceso por **roles personalizados** (Admin, Comprador, Vendedor)
+- 📋 Registro de órdenes de compra y venta a través de formularios personalizados
+- 🧠 Conexión directa a SQL Server (`Medina_ERP`)
+- 📑 Consultas en vivo con Power Query (uso controlado)
+- 🧾 Estructura tabular replicable para formularios y líneas de captura
+
+---
+
+## 📁 Estructura de formularios
+
+### 🔓 UserForm_Users
+Formulario de autenticación de acceso seguro.
+- Verifica credenciales en la hoja `Usuarios`
+- Asigna permisos dinámicos según el rol
+- Guarda el nombre del usuario autenticado en `Temporales!C4`
+- Actualiza hojas y conexiones tras el login
+
+---
+
+### 🛒 frm_OrdenCompra
+Formulario para registrar órdenes de compra.
+- Captura campos: `Fecha`, `Id_Proveedor`, `No_Orden`
+- Captura hasta 5 líneas de productos (`SKU`, `Cantidad`, `Costo`, `Descuento`)
+- Guarda los datos en la tabla SQL `OrdenesCompra`
+- Extrae automáticamente el `Id_Proveedor` desde búsqueda inteligente
+- Cierra el formulario tras confirmación
+
+---
+
+### 💰 frm_OrdenVenta
+Formulario para registrar órdenes de venta.
+- Captura: `Fecha`, `Id_Cliente`, `No_Orden`, `Creator`
+- Hasta 10 líneas dinámicas de producto (`SKU`, `Cantidad`, `Precio`, `Descuento`)
+- Guarda línea por línea en la tabla SQL `OrdenVenta`
+- Cierra al finalizar exitosamente
+
+---
+
+### 👤 Búsqueda inteligente de clientes y proveedores
+- Campo tipo autocompletado en `TextBox2`
+- Búsqueda parcial en la vista `vw_Clientes_NombreCompleto` o tabla `Proveedores`
+- Selección desde `ListBox1` actualiza automáticamente el ID en `TextBox4`
+
+---
+
+## 🛠️ Conexión con SQL Server
+
+Todas las operaciones se realizan con conexión ADODB:
+- Base: **`Medina_ERP`**
+- Tablas utilizadas: `Clientes`, `Proveedores`, `OrdenVenta`, `OrdenesCompra`
+- Vistas usadas: `vw_Clientes_NombreCompleto` (para búsquedas limpias y sin redundancia)
+
+---
+
+## 🔐 Roles implementados
+
+| Rol        | Hojas habilitadas   | Permisos                                                  |
+|------------|---------------------|-----------------------------------------------------------|
+| `ADMIN`    | Usuarios, D_Compras, D_Ventas, D_Almacen | Control total                        |
+| `COMPRADOR`| D_Compras            | Formulario de Orden de Compra                            |
+| `VENDEDOR` | D_Ventas             | Formulario de Orden de Venta                             |
+| `ALMACEN`  | D_Almacen            | Será para dar entradas y salidas de material, aun no desarrollado             |
+
+---
+
+## ✅ Requisitos
+
+- Microsoft Excel con soporte para macros (`.xlsm`)
+- Acceso a SQL Server con base `Medina_ERP`
+- Autenticación habilitada por Windows (SSPI)
+
+---
+
+## 📌 Pendientes (To-do)
+
+- [ ] Agregar control de estado de órdenes (Borrador, Enviada, Procesada)
+- [ ] Incluir bitácora de movimientos por usuario
+- [ ] Formulario de Almacen
+- [ ] Conexiones y reportes por rol
+- [ ] Exportar reportes resumen en PDF
+- [ ] Dashboards conectados a Power BI
+
+---
+
+## 🧠 Créditos
+
+Desarrollado por [Antonio Medina](#) con la asistencia técnica de Copilot — el ERP con alma VBA.  
+Minimalista, modular y adaptable. Porque no necesitas un monstruo para tener control total.
