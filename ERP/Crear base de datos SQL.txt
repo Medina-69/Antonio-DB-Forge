@@ -99,35 +99,3 @@ CREATE TABLE Ventas (
     IVA FLOAT,
     Total FLOAT
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
