@@ -1,0 +1,27 @@
+USE Medina_ERP;
+GO
+
+INSERT INTO Productos (
+    Codigo,
+    Nombre,
+    Descripcion,
+    Id_Marca,
+    Costo_Unitario,
+    Unidad,
+    Imagen_Principal,
+    Imagen_1,
+    Imagen_2,
+    Imagen_3
+)
+VALUES 
+('P0001', 'Interruptor Termomagnético', 'Interruptor de 2 polos, 20A, ideal para tableros residenciales', 1, 120.50, 'pieza',
+ 'https://ejemplo.com/img/p0001_main.jpg', 'https://ejemplo.com/img/p0001_1.jpg',
+ 'https://ejemplo.com/img/p0001_2.jpg', 'https://ejemplo.com/img/p0001_3.jpg'),
+
+('P0002', 'Contactador 3RT', 'Contactador Siemens 3RT para 220V, 32A de potencia nominal', 2, 350.00, 'pieza',
+ 'https://ejemplo.com/img/p0002_main.jpg', 'https://ejemplo.com/img/p0002_1.jpg',
+ 'https://ejemplo.com/img/p0002_2.jpg', 'https://ejemplo.com/img/p0002_3.jpg'),
+
+('P0003', 'Cable THW-LS 12 AWG', 'Cable eléctrico calibre 12, aislado y resistente a la humedad, rollo de 100 m', 3, 980.00, 'rollo',
+ 'https://ejemplo.com/img/p0003_main.jpg', 'https://ejemplo.com/img/p0003_1.jpg',
+ 'https://ejemplo.com/img/p0003_2.jpg', 'https://ejemplo.com/img/p0003_3.jpg');

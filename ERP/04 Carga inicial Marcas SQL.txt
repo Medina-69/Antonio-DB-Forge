@@ -1,0 +1,8 @@
+USE Medina_ERP;
+GO
+
+INSERT INTO Marcas (Marca, Imagen)
+VALUES 
+('Schneider Electric', 'https://www.2n.com/-/media/Images/Partners/Integrators/Schneider-Electric.png'),
+('Siemens', 'https://www.electronicaembajadores.com/datos/fotos/articulos/medianas/marcas/Siemens.png'),
+('Condumex', 'https://www.carso.com.mx/wp-content/uploads/2019/11/Logo-Cx.png');

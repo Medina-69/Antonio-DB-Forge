@@ -1,0 +1,11 @@
+USE Medina_ERP;
+GO
+
+INSERT INTO proveedores (Nombre, Prefijo, RFC, Homoclave, Direccion, Telefono, Email)
+VALUES 
+('Distribuciones Eléctricas del Centro', 'DE', 'DEC850123', 'LZ3', 'Av. Reforma 123, Puebla, Pue.', '222-123-4567', 'contacto@dec.com.mx'),
+('Componentes Industriales MX', 'CI', 'CIM920421', 'TJ2', 'Calle Industria 456, Monterrey, NL', '818-765-4321', 'ventas@cim.com.mx'),
+('Suministros Técnicos del Bajío', 'ST', 'STB970310', 'QZ6', 'Blvd. Hidalgo 789, León, Gto.', '477-555-6789', 'stb@proveedores.com');
+
+
+-- Cada línea debe ser un Proveedor con sus datos entre comillas simples, separados por comas, cada línea termina con una coma después del paréntesis, la ultima línea lleva punto y coma. El prefijo esta limitado a 2 caracteres. El RFC se debe capturar con la homoclave por separado.

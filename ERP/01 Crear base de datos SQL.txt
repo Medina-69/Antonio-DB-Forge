@@ -1,0 +1,103 @@
+-- Crear base de datos
+CREATE DATABASE [Medina_ERP];
+GO
+USE [Medina_ERP];
+GO
+
+-- Tabla Proveedores
+CREATE TABLE Proveedores (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre VARCHAR(50),
+    Prefijo VARCHAR(2),
+    RFC VARCHAR(10) CHECK (RFC = UPPER(RFC)),
+    Homoclave VARCHAR(4),
+    Direccion VARCHAR(150),
+    Telefono VARCHAR(20),
+    Email VARCHAR(100) CHECK (Email LIKE '%@%')
+);
+
+-- Tabla Marcas
+CREATE TABLE Marcas (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Marca VARCHAR(50),
+    Imagen NVARCHAR(MAX)  -- Para almacenar archivos de imagen
+);
+
+-- Tabla Productos
+CREATE TABLE Productos (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    SKU VARCHAR(45),
+    Nombre VARCHAR(150),
+    Descripcion VARCHAR(450),
+    Id_Marca INT FOREIGN KEY REFERENCES Marcas(Id),
+    Costo_Unitario FLOAT,
+    Unidad VARCHAR(15),
+    Imagen_Principal NVARCHAR(MAX),
+    Imagen_1 NVARCHAR(MAX),
+    Imagen_2 NVARCHAR(MAX),
+    Imagen_3 NVARCHAR(MAX),
+    Creator VARCHAR(30)
+);
+
+-- Tabla OrdenesCompra
+CREATE TABLE OrdenesCompra (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Fecha DATE,
+    No_Orden VARCHAR(15),
+    Id_Proveedor INT FOREIGN KEY REFERENCES Proveedores(Id),
+    SKU_Producto VARCHAR(45),
+    Costo_Unitario FLOAT,
+    Descuento FLOAT CHECK (Descuento BETWEEN 0 AND 100),
+    Cantidad INT
+);
+
+-- Tabla Compras
+CREATE TABLE Compras (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    No_Orden VARCHAR(15),
+    SubTotal FLOAT,
+    IVA FLOAT,
+    Total FLOAT,
+    Aceptado DATE,
+    [Stand-by] DATE,
+    Pagado DATE,
+    Cancelado DATE
+);
+
+-- Tabla Clientes
+CREATE TABLE Clientes (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Apellido_Paterno VARCHAR(150),
+    Apellido_Materno VARCHAR(150),
+    Nombres VARCHAR(150),
+    RFC VARCHAR(10),
+    Homoclave VARCHAR(4),
+    Direccion VARCHAR(50),
+    Ciudad VARCHAR(50),
+    Estado VARCHAR(50),
+    CP INT,
+    Telefono VARCHAR(20),
+    Email VARCHAR(50) CHECK (Email LIKE '%@%')
+);
+
+-- Tabla OrdenVenta
+CREATE TABLE OrdenVenta (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Fecha DATE,
+    No_Orden VARCHAR(15),
+    Id_Cliente INT FOREIGN KEY REFERENCES Clientes(Id),
+    SKU_Producto VARCHAR(45),
+    Cantidad INT,
+    Precio FLOAT,
+    Descuento FLOAT CHECK (Descuento BETWEEN 0 AND 100),
+    Creator VARCHAR(30),
+);
+
+-- Tabla Ventas
+CREATE TABLE Ventas (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    No_Orden VARCHAR(15),
+    SubTotal FLOAT,
+    IVA FLOAT,
+    Total FLOAT
+);

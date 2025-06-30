@@ -1,0 +1,23 @@
+USE Medina_ERP;
+GO
+
+INSERT INTO Clientes (
+    Nombre_Completo,
+    Apellido_Paterno,
+    Apellido_Materno,
+    Nombres,
+    RFC,
+    Homoclave,
+    Direccion,
+    Ciudad,
+    Estado,
+    CP,
+    Telefono,
+    Email
+)
+VALUES 
+('Gómez Martínez Laura', 'Gómez', 'Martínez', 'Laura', 'GML890512', 'TR5', 'Av. Juárez 100, Int. 3', 'Puebla', 'Puebla', '72000', '222-765-4321', 'laura.gomez@example.com'),
+('Hernández López Carlos', 'Hernández', 'López', 'Carlos', 'HLC910303', 'FJ2', 'Calle 5 Sur 550', 'Cholula', 'Puebla', '72760', '222-888-9999', 'carlos.hl@example.com'),
+('Ramírez Soto Ana María', 'Ramírez', 'Soto', 'Ana María', 'RSA850715', 'KM7', 'Blvd. Atlixco 2121', 'Puebla', 'Puebla', '72450', '222-112-3344', 'anaramirez@correo.com');
+
+-- Cada línea debe ser un Cliente con sus datos entre comillas simples, separados por comas, cada línea termina con una coma después del paréntesis, la ultima línea lleva punto y coma. El RFC se debe capturar con la homoclave por separado.
