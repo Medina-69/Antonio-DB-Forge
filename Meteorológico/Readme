@@ -58,19 +58,11 @@ Durante la inserción a la tabla final, se aplican las siguientes reglas:
 - ❌ Rechazados: ~250 registros (0.0002%) por error de clave o fecha
 - ⏱️ Tiempo de ejecución total: ~10 minutos en carga completa
 
----
-
-## 🧪 Próximos pasos
-
-- [ ] Crear procedimiento almacenado reutilizable para futuras cargas
-- [ ] Agregar bitácora de auditoría para fechas inválidas y claves inexistentes
-- [ ] Integrar flujo en el ERP Medina_ERP para carga directa desde formulario
-- [ ] Construcción de dashboards climáticos en Power BI o Excel pivotado
 
 ---
 
 ## 📜 Créditos
 
-Desarrollado por **Antonio Medina**, ingeniero y creador de `Medina_ERP`. Esta base de datos forma parte del sistema modular de gestión con enfoque profesional para análisis meteorológico y validación de datos georreferenciados.
+Desarrollado por **Antonio Medina**. Esta base de datos forma parte del sistema modular de gestión con enfoque profesional para análisis meteorológico y validación de datos georreferenciados.
 
 ---
