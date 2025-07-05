@@ -1,0 +1,57 @@
+USE ClimaMexico;  
+GO
+
+-- 1️⃣ Crear tabla staging temporal
+CREATE TABLE ClimaMexico.dbo.Registros_TempRaw (
+    Clave VARCHAR(50),
+    Fecha VARCHAR(50),  -- Se mantiene como texto para conversión flexible
+    Precipitacion VARCHAR(20),
+    Temperatura_Media VARCHAR(20),
+    Temperatura_Maxima VARCHAR(20),
+    Temperatura_Minima VARCHAR(20),
+    Evaporacion VARCHAR(20)
+);
+
+-- 2️⃣ Cargar archivo CSV con valores crudos
+BULK INSERT ClimaMexico.dbo.Registros_TempRaw
+FROM 'C:\Users\medin\OneDrive\Documentos\Curriculum\Meteorologico\Consolidado.csv'
+WITH (
+    FIRSTROW = 1,
+    FIELDTERMINATOR = ',', 
+    ROWTERMINATOR = '\n',
+    CODEPAGE = '65001',
+    TABLOCK
+);
+
+-- 3️⃣ Insertar transformando valores y limpiando guiones
+INSERT INTO ClimaMexico.dbo.Registros_Estaciones (
+    Clave,
+    Fecha,
+    Precipitacion_mm,
+    Temperatura_Media,
+    Temperatura_Maxima,
+    Temperatura_Minima,
+    Evaporacion_mm
+)
+SELECT
+    Clave,
+    COALESCE(
+        TRY_CONVERT(DATE, Fecha, 111),               -- yyyy/MM/dd (ISO/Japanese style)
+        TRY_PARSE(Fecha AS DATE USING 'es-MX'),      -- dd/MM/yyyy
+        TRY_PARSE(Fecha AS DATE USING 'en-US')       -- MM/dd/yyyy
+    ) AS FechaConvertida,
+    TRY_CAST(NULLIF(Precipitacion, '-') AS decimal(6, 2)),
+    TRY_CAST(NULLIF(Temperatura_Media, '-') AS decimal(5, 2)),
+    TRY_CAST(NULLIF(Temperatura_Maxima, '-') AS decimal(5, 2)),
+    TRY_CAST(NULLIF(Temperatura_Minima, '-') AS decimal(5, 2)),
+    TRY_CAST(NULLIF(Evaporacion, '-') AS decimal(6, 2))
+FROM ClimaMexico.dbo.Registros_TempRaw
+WHERE 
+    COALESCE(
+        TRY_CONVERT(DATE, Fecha, 111),
+        TRY_PARSE(Fecha AS DATE USING 'es-MX'),
+        TRY_PARSE(Fecha AS DATE USING 'en-US')
+    ) IS NOT NULL;
+
+-- 4️⃣ Limpieza final (opcional si no deseas conservar la staging)
+DROP TABLE ClimaMexico.dbo.Registros_TempRaw;

@@ -1,0 +1,35 @@
+import os
+import pandas as pd
+
+# Ruta base
+folder = r"C:\Users\medin\OneDrive\Documentos\Curriculum\Meteorologico\Registros por estacion"
+salida = os.path.join(folder, "Consolidado.csv")
+
+# Inicializar lista de DataFrames
+consolidados = []
+
+# Recorrer archivos CSV en el folder
+for nombre_archivo in os.listdir(folder):
+    if nombre_archivo.endswith(".csv"):
+        ruta = os.path.join(folder, nombre_archivo)
+        clave = os.path.splitext(nombre_archivo)[0]  # Sin extensión
+
+        try:
+            # Leer CSV ignorando encabezados hasta línea 8
+            df = pd.read_csv(ruta, skiprows=8, header=None)
+
+            # Añadir la columna 'Clave'
+            df.insert(0, "Clave", clave)
+
+            consolidados.append(df)
+
+        except Exception as e:
+            print(f"⚠ Error con {nombre_archivo}: {e}")
+
+# Unir todo
+if consolidados:
+    df_final = pd.concat(consolidados, ignore_index=True)
+    df_final.to_csv(salida, index=False, header=False)
+    print(f"\n✅ Consolidación completa. Archivo guardado en:\n{salida}")
+else:
+    print("\n⚠ No se encontraron archivos válidos.")

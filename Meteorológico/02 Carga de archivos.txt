@@ -1,0 +1,67 @@
+USE ClimaMexico;  
+GO
+
+CREATE TABLE Municipios_temp (
+    Estado VARCHAR(100),
+    Municipio VARCHAR(100)
+);
+
+BULK INSERT Municipios_temp
+FROM 'C:\Users\medin\OneDrive\Documentos\Curriculum\Meteorologico\Municipios.csv'
+WITH (
+    FIRSTROW = 2,
+    FIELDTERMINATOR = ',',
+    ROWTERMINATOR = '\n',
+    CODEPAGE = '65001',
+    TABLOCK
+);
+
+INSERT INTO Municipios (Estado, Municipio)
+SELECT Estado, Municipio FROM Municipios_temp;
+
+CREATE TABLE Catalogo_Estaciones_temp (
+    Clave VARCHAR(20),
+    Nombre_Estacion VARCHAR(150),
+    Latitud DECIMAL(10,6),
+    Longitud DECIMAL(10,6),
+    Altitud VARCHAR(10),
+    Estado VARCHAR(100),
+    Municipio VARCHAR(100),
+    Identificador_Cuenca VARCHAR(50),
+    Cuenca_Disponibilidad VARCHAR(100),
+    Numero_Region_Hidrologica VARCHAR(50),
+    Region_Hidrologica VARCHAR(150)
+);
+
+BULK INSERT Catalogo_Estaciones_temp
+FROM 'C:\Users\medin\OneDrive\Documentos\Curriculum\Meteorologico\Estaciones_climatologicas.csv'
+WITH (
+    FIRSTROW = 2,
+    FIELDTERMINATOR = ',',
+    ROWTERMINATOR = '\n',
+    CODEPAGE = '65001',
+    TABLOCK
+);
+
+UPDATE Catalogo_Estaciones_temp
+SET Altitud = NULL
+WHERE Altitud = '-' OR ISNUMERIC(Altitud) = 0;
+
+INSERT INTO Catalogo_Estaciones (
+    Clave, Nombre_Estacion, Latitud, Longitud, Altitud, Estado, Municipio,
+    Identificador_Cuenca, Cuenca_Disponibilidad, Numero_Region_Hidrologica, Region_Hidrologica
+)
+SELECT
+    Clave, Nombre_Estacion, Latitud, Longitud,
+    CAST(Altitud AS SMALLINT),
+    Estado, Municipio,
+    Identificador_Cuenca, Cuenca_Disponibilidad,
+    CAST(Numero_Region_Hidrologica AS INT),
+    Region_Hidrologica
+FROM Catalogo_Estaciones_temp
+WHERE
+    (Altitud IS NULL OR ISNUMERIC(Altitud) = 1)
+    AND Clave NOT IN (SELECT Clave FROM Catalogo_Estaciones);
+
+DROP TABLE Catalogo_Estaciones_temp;
+DROP TABLE Municipios_temp;

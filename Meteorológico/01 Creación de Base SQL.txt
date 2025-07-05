@@ -1,0 +1,35 @@
+CREATE DATABASE ClimaMexico;
+GO
+USE ClimaMexico;
+GO
+
+CREATE TABLE Municipios (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    Estado VARCHAR(100) NOT NULL,
+    Municipio VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Catalogo_Estaciones (
+    Clave VARCHAR(20),
+    Nombre_Estacion VARCHAR(150),
+    Latitud DECIMAL(10,6),
+    Longitud DECIMAL(10,6),
+    Altitud SMALLINT,
+    Estado VARCHAR(100),
+    Municipio VARCHAR(100),
+    Identificador_Cuenca VARCHAR(50),
+    Cuenca_Disponibilidad VARCHAR(100),
+    Numero_Region_Hidrologica INT,
+    Region_Hidrologica VARCHAR(100)
+);
+
+CREATE TABLE Registros_Estaciones (
+    Clave VARCHAR(20) NOT NULL,
+    Fecha DATE NOT NULL,
+    Precipitacion_mm DECIMAL(6,2),
+    Temperatura_Media DECIMAL(5,2),
+    Temperatura_Maxima DECIMAL(5,2),
+    Temperatura_Minima DECIMAL(5,2),
+    Evaporacion_mm DECIMAL(6,2)
+    );
+
