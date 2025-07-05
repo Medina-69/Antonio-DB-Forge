@@ -1,6 +1,7 @@
 # 📡 ClimaMexico – SQL Server Climate Data Warehouse
 
-`ClimaMexico` es una base de datos diseñada para almacenar, procesar y analizar registros meteorológicos a gran escala. Fue desarrollada como parte del ecosistema ERP personalizado **Medina_ERP**, con capacidades de carga masiva, validación de calidad de datos y relaciones referenciales activas.
+`ClimaMexico` es una base de datos diseñada para almacenar, procesar y analizar registros meteorológicos a gran escala. Hay que descargar los 7989 archivos csv de las diferentes estaciones meteorológicas del país en la siguiente liga:
+https://sih.conagua.gob.mx/climas.html
 
 ---
 
