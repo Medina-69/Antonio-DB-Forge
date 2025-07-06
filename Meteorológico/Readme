@@ -1,68 +1,52 @@
-# 📡 ClimaMexico – SQL Server Climate Data Warehouse
+📡 ClimaMexico – SQL Server Climate Data Warehouse
+ClimaMexico es una base de datos diseñada para almacenar, procesar y analizar registros meteorológicos a gran escala. Hay que descargar los 7989 archivos CSV de las diferentes estaciones meteorológicas del país en la siguiente liga oficial:
+🔗 https://sih.conagua.gob.mx/climas.html
 
-`ClimaMexico` es una base de datos diseñada para almacenar, procesar y analizar registros meteorológicos a gran escala. Hay que descargar los 7989 archivos csv de las diferentes estaciones meteorológicas del país en la siguiente liga:
-https://sih.conagua.gob.mx/climas.html
+🚀 Resumen del proyecto
+- 🔄 Carga masiva de datos climáticos (>148 millones de registros)
+- 🧼 Normalización dinámica de fechas con múltiples formatos (yyyy/MM/dd, dd/MM/yyyy, MM/dd/yyyy)
+- ⚠️ Tratamiento de valores faltantes (por ejemplo, guiones como "-" se convierten en NULL)
+- 🧩 Validación de claves foráneas contra catálogo de estaciones (Catalogo_Estaciones)
+- 📥 Uso de tabla staging (Registros_TempRaw) para desambiguación y limpieza
+- 📊 Tasa de error menor a 0.0002%
 
----
+📁 Estructura principal
+Registros_Estaciones (tabla destino)
+| Columna | Tipo de dato | Descripción | 
+| Clave | VARCHAR(50) | Clave de la estación meteorológica (FK) | 
+| Fecha | DATE | Fecha del registro (convertida dinámicamente) | 
+| Precipitacion_mm | DECIMAL(6,2) | Nivel de precipitación en milímetros | 
+| Temperatura_Media | DECIMAL(5,2) | Temperatura promedio en °C | 
+| Temperatura_Maxima | DECIMAL(5,2) | Temperatura máxima registrada | 
+| Temperatura_Minima | DECIMAL(5,2) | Temperatura mínima registrada | 
+| Evaporacion_mm | DECIMAL(6,2) | Nivel de evaporación en milímetros | 
 
-## 🚀 Resumen del proyecto
 
-- 🔄 **Carga masiva de datos climáticos** (>148 millones de registros)
-- 🧼 **Normalización dinámica de fechas** con múltiples formatos (`yyyy/MM/dd`, `dd/MM/yyyy`, `MM/dd/yyyy`)
-- ⚠️ **Tratamiento de valores faltantes** (por ejemplo, guiones como `"-"` se convierten en `NULL`)
-- 🧩 **Validación de claves foráneas** contra catálogo de estaciones (`Catalogo_Estaciones`)
-- 📥 **Uso de tabla staging (`Registros_TempRaw`)** para desambiguación y limpieza
-- 📊 **Error rate menor a 0.0002%**
+Registros_TempRaw (tabla staging temporal)
+Estructura idéntica pero con todos los campos como VARCHAR, para facilitar la carga sin errores y su posterior transformación controlada.
 
----
-
-## 📁 Estructura principal
-
-### `Registros_Estaciones` (tabla destino)
-| Columna               | Tipo de dato       | Descripción                                 |
-|-----------------------|--------------------|---------------------------------------------|
-| `Clave`               | VARCHAR(50)        | Clave de la estación meteorológica (FK)     |
-| `Fecha`               | DATE               | Fecha del registro (convertida dinámicamente)|
-| `Precipitacion_mm`    | DECIMAL(6,2)       | Nivel de precipitación en milímetros        |
-| `Temperatura_Media`   | DECIMAL(5,2)       | Temperatura promedio en °C                  |
-| `Temperatura_Maxima`  | DECIMAL(5,2)       | Temperatura máxima registrada               |
-| `Temperatura_Minima`  | DECIMAL(5,2)       | Temperatura mínima registrada               |
-| `Evaporacion_mm`      | DECIMAL(6,2)       | Nivel de evaporación en milímetros          |
-
-### `Registros_TempRaw` (tabla staging temporal)
-Estructura idéntica pero con todos los campos como `VARCHAR`, para facilitar la carga sin errores y su posterior transformación controlada.
-
----
-
-## 🧠 Lógica de transformación
-
+🧠 Lógica de transformación
 Durante la inserción a la tabla final, se aplican las siguientes reglas:
-- Fechas convertidas con `COALESCE(TRY_CONVERT(...), TRY_PARSE(...))`
-- Valores `'-'` transformados a `NULL` con `NULLIF()`
-- Conversión segura a `DECIMAL` con `TRY_CAST()`
-- Verificación de claves existentes con `INNER JOIN` a `Catalogo_Estaciones`
+- Fechas convertidas con COALESCE(TRY_CONVERT(...), TRY_PARSE(...))
+- Valores '-' transformados a NULL con NULLIF()
+- Conversión segura a DECIMAL con TRY_CAST()
+- Verificación de claves existentes con INNER JOIN a Catalogo_Estaciones
 
----
-
-## 🛡️ Reglas de integridad
-
-- Clave foránea: `Registros_Estaciones.Clave → Catalogo_Estaciones.Clave`
-- Columna `Fecha` es `NOT NULL` y requiere valor válido o es rechazada
+🛡️ Reglas de integridad
+- Clave foránea: Registros_Estaciones.Clave → Catalogo_Estaciones.Clave
+- Columna Fecha es NOT NULL y requiere valor válido o es rechazada
 - Rechazo automático de registros con fecha no convertible o clave inválida
 
----
-
-## 📈 Resultados
-
-- ✅ Total cargado: `148,409,790` registros
+📈 Resultados
+- ✅ Total cargado: 148,409,790 registros
 - ❌ Rechazados: ~250 registros (0.0002%) por error de clave o fecha
 - ⏱️ Tiempo de ejecución total: ~10 minutos en carga completa
 
+🧠 Integración analítica
+El sistema fue diseñado en conjunto con Microsoft Copilot, quien asistió en el desarrollo del modelo predictivo por fecha y la integración avanzada entre SQL Server y Power BI.
+Para visualizar el modelo en Power BI, descarga el archivo .pbix desde el siguiente enlace (por tamaño no se pudo alojar en GitHub):
+🔽 Descargar archivo BI:
+https://drive.google.com/file/d/1XyJyGu9YcS1wC8quH1ka9-65tkxENfyU/view?usp=sharing
 
----
-
-## 📜 Créditos
-
-Desarrollado por **Antonio Medina**. Esta base de datos forma parte del sistema modular de gestión con enfoque profesional para análisis meteorológico y validación de datos georreferenciados.
-
----
+📜 Créditos
+Desarrollado por Antonio Medina, con soporte de Microsoft Copilot. Esta base de datos forma parte del sistema modular de gestión con enfoque profesional para análisis meteorológico y validación de datos georreferenciados.
